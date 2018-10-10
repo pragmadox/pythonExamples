@@ -1,0 +1,55 @@
+'''
+This program will accept a given matrix, create a new matrix
+and then tag positive values in the original matrix, assign
+them to the same group in the new matrix with an ascending value, provided
+the positive values reside directly to the sides, above, or below each other.
+'''
+
+from matrixfunctions_athome import *
+
+read_matrix_data()
+
+matrix_copy(test_matrix)
+
+def recursion_check( recursion_column, recursion_row, group_value ):
+    if test_matrix[ recursion_column ][ recursion_row ] == 0:
+        ordered_matrix[ recursion_column ][ recursion_row ] = 0
+    else:
+        if test_matrix[ recursion_column ][ recursion_row ] == 1:
+            ordered_matrix[ recursion_column ][ recursion_row ] = group_value
+            if ( recursion_column -1) >= 0:
+                recursion_check( recursion_column - 1, recursion_row, group_value )
+            if ( recursion_row - 1) >= 0:
+                recursion_check( recursion_column, recursion_row - 1, group_value )
+            if ( recursion_column + 1) < columns( test_matrix ): 
+                recursion_check( recursion_column + 1, recursion_row, group_value )
+            if ( recursion_row + 1 ) < rows( test_matrix ):
+                recursion_check( recursion_column, recursion_row + 1, group_value ) 
+    
+def check_values():
+    current_column = 0
+    current_row = 0
+    group_value = 2
+    while test_matrix[ current_column ][ current_row ] != 1:
+        if current_column < columns(test_matrix) and current_row < rows(test_matrix):
+            current_column = current_column + 1
+            if current_column == ( columns(test_matrix) - 1 ):
+                current_column = 0
+                current_row =  current_row + 1
+        print (repr(current_column), repr(current_row))
+    recursion_check( current_column, current_row, group_value )
+    group_value = group_value + 1
+
+'''
+def graduate_values( current_column, current_row ): 
+    if current_column < columns(test_matrix) and current_row < rows(test_matrix):
+        current_column = current_column + 1
+        if current_column == ( columns(test_matrix) - 1 ):
+            current_column = 0
+            current_row =  current_row + 1        
+'''
+        
+check_values()
+print_matrix(ordered_matrix)
+        
+    

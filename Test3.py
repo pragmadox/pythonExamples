@@ -1,0 +1,8 @@
+''' A very simple program demonstrating the program's documentation string
+''' 
+
+person = input('Enter your name: ')
+print( 'Hello', person ) 
+print( 'Hello' + person)
+print 'Hello', person
+
